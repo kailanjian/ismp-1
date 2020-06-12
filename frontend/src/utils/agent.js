@@ -33,11 +33,23 @@ export const requests = {
       .then(responseBody)
 };
 
-export const Blogposts = {
+export const FeaturedBlogposts = {
   getFeatured: () => {
-    return requests.get(`blogpostcontent/?featured=true`).then(data => {
-      return data.results;
-    });
+    return requests
+      .get(`blogpostcontent/?featured=true`)
+      .then(data => data.results);
+  }
+};
+
+export const BlogTopics = {
+  getBlogCategories: () => {
+    return requests.get(`topic`).then(data => data.results);
+  }
+};
+
+export const AllBlogposts = {
+  getAllBlogposts: () => {
+    return requests.get(`blogpostcontent`).then(data => data.results);
   }
 };
 

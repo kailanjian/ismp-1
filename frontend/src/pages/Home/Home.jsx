@@ -4,9 +4,10 @@ import Subscribe from 'components/Subscribe';
 import { Link, useParams } from 'react-router-dom';
 import HeroImage from 'components/HeroImage/HeroImage';
 import theme from '../../styles/theme';
-import { Blogposts } from '../../utils/agent';
+import { FeaturedBlogposts } from '../../utils/agent';
 import { useTranslation } from 'react-i18next';
 import { Embed } from 'semantic-ui-react';
+import HomePageBlogSection from './HomePageBlogSection';
 
 // TODO: Just testing things out
 const MentorContainer = Styled.div`
@@ -89,7 +90,7 @@ const Home = () => {
     }
   ]);
 
-  Blogposts.getFeatured().then(data => {
+  FeaturedBlogposts.getFeatured().then(data => {
     // TODO: use setFeaturedBlogs to update featuredBlogs from the backend data
     // make sure to only update if it is in the initial state, otherwise it will
     // cause an inifinite loop
@@ -138,13 +139,8 @@ const Home = () => {
         <StyledLink to="/">view all</StyledLink>
       </TitleContainer>
 
-      <ul>
-        {featuredBlogs.map((blog, index) => (
-          <li key={index}>
-            Title: {blog.title_content}, Description {blog.body_content}
-          </li>
-        ))}
-      </ul>
+      <HomePageBlogSection />
+
       <Subscribe />
     </>
   );

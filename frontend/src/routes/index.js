@@ -12,6 +12,7 @@ import Terms from '../pages/Legal/Terms';
 import Privacy from '../pages/Legal/Privacy';
 import Leadership from '../pages/Leadership/Leadership';
 import BlogList from 'pages/Blogs/BlogListPage';
+import Blog from '../pages/Blog/Blog';
 
 export const HOME = Home;
 export const EDIT_BLOG = EditBlog;
@@ -31,3 +32,4 @@ export const BLOGPOST = Blogpost;
 export const PRIVACY = Privacy;
 export const TERMS = Terms;
 export const LEADERSHIP = Leadership;
+export const BLOG = Blog;
