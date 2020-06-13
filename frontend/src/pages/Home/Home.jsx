@@ -125,14 +125,6 @@ const Home = () => {
         <ItalizedParagraph>{t('mentor_section.blurb')}</ItalizedParagraph>
       </MentorContainer>
 
-      <DuoContainer>
-        <div>
-          <SubTitle>{t('diff_section.title')}</SubTitle>
-          <StyledParagraph>{t('diff_section.blurb')}</StyledParagraph>
-        </div>
-        <VideoPlaceholder />
-      </DuoContainer>
-
       <TitleContainer>
         <SubTitle>Webinar Highlights</SubTitle>
         <StyledLink to="/">view all</StyledLink>
