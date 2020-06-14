@@ -11,16 +11,18 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+
 if os.getenv("ENV_TYPE") == "PROD":
     from .prod_settings import *  # pylint: disable=unused-wildcard-import, wildcard-import
+
     print("initializing with prod settings")
 else:
     from .dev_settings import *  # pylint: disable=unused-wildcard-import, wildcard-import
+
     print("initializing with dev settings")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -47,7 +49,15 @@ INSTALLED_APPS = [
     'api.school',
     'api.upload',
     'api.mentor',
-    'mailchimp3'
+    'mailchimp3',
+    'health_check',  # required
+    'health_check.db',  # stock Django health checkers
+    #     'health_check.cache',
+    'health_check.storage',
+
+    # not supporting s3 health check for now since we don't use it yet
+
+    #     'health_check.contrib.s3boto_storage',      # requires boto and S3BotoStorage backend
 ]
 
 MIDDLEWARE = [
@@ -82,7 +92,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'api.wsgi.application'
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -101,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -114,7 +122,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

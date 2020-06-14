@@ -42,6 +42,7 @@ urlpatterns = [
     path('api/', include('api.profiles.urls', namespace='profiles')),
     path('tinymce/', include('tinymce.urls')),
     path('upload/', include('api.upload.urls')),
-    path('subscribe-newsletter/', SubscribeNewsletterView.as_view())
+    path('subscribe-newsletter/', SubscribeNewsletterView.as_view()),
+    path('healthcheck/', include('health_check.urls'))
     # TODO: Make the following only happen if debug is set to true
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
