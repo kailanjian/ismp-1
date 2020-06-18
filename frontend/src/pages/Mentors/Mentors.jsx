@@ -8,29 +8,31 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid } from 'semantic-ui-react';
 
+const SchoolSection = ({ school, mentors }) => (
+  <Section>
+    <SectionHeader title={school} />
+    <Grid doubling stackable columns={3}>
+      {mentors.mentors.map((mentor) =>
+        <Grid.Column key={mentor.name}>
+          <ProfileCardVertical mentor={mentor} />
+        </Grid.Column>
+      )}
+    </Grid>
+  </Section>
+);
+
 const Mentors = () => {
   const { t } = useTranslation('mentors');
   return (
     <PageContainer>
       <PageHeader title={t('title')} />
-      {Object.keys(mentors).map(school => (
-        <SchoolSection key={school} school={school} mentors={mentors[school]} />
-      ))}
+      {
+        Object.keys(mentors).map((school) =>
+          <SchoolSection key={school} school={school} mentors={mentors[school]} />
+        )
+      }
     </PageContainer>
   );
 };
-
-const SchoolSection = ({ school, mentors }) => (
-  <Section>
-    <SectionHeader title={school} />
-    <Grid doubling stackable columns={3}>
-      {mentors.map(mentor => (
-        <Grid.Column key={mentor.name}>
-          <ProfileCardVertical mentor={mentor} />
-        </Grid.Column>
-      ))}
-    </Grid>
-  </Section>
-);
 
 export default Mentors;
