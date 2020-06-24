@@ -18,7 +18,7 @@ import theme from './styles/theme';
 import * as serviceWorker from './utils/serviceWorker';
 
 const tagManagerArgs = {
-  gtmId: 'GTM-MVR3SLT'
+  gtmId: 'GTM-XXXXXXXX' // fill this out with your own
 }
 TagManager.initialize(tagManagerArgs)
 
