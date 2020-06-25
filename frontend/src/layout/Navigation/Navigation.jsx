@@ -185,6 +185,13 @@ const Nav = ({ mobile, history }) => {
   const { t } = useTranslation('general');
   const currentPath = history.location.pathname;
 
+  const pushApplyClickToDataLayer = () => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'event': 'application_click'
+    });
+  }
+
   return (
     <>
       <Menu.Item
@@ -232,7 +239,7 @@ const Nav = ({ mobile, history }) => {
           );
         })}
         {mobile ? null : (
-          <ApplyNowButton to="/apply">
+          <ApplyNowButton to="/apply" onClick={pushApplyClickToDataLayer()}>
             {t('apply_now')}
           </ApplyNowButton>
         )}
