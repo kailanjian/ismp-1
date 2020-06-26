@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import TagManager from 'react-gtm-module'
 
 import DesktopContainer from './DesktopContainer';
 import MobileContainer from './MobileContainer';
@@ -7,15 +8,13 @@ import MobileContainer from './MobileContainer';
 const ResponsiveContainer = ({ children }) => {
   const history = useHistory();
   history.listen(location => {
-//     ReactGA.set({ page: location.pathname }); // Update the user's current page
-//     ReactGA.pageview(location.pathname); // Record a pageview for the given page
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    'event': location.pathname,
-    'page_type': 'application'
-  });
-  console.log('window layer', window.dataLayer);
-
+    const pageViewTagManagerArgs = {
+      dataLayer: {
+        'page': location.pathname,
+        'event': 'browse',
+      }
+    }
+    TagManager.dataLayer(pageViewTagManagerArgs)
   });
   return (
     <div>

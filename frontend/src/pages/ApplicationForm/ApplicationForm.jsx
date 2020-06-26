@@ -9,15 +9,11 @@ import {
   Segment,
   Select,
   Step,
-  Label
+  Label,
+  Message
 } from 'semantic-ui-react';
 
-import {
-  List,
-  ListItem,
-  SubTitle,
-  Title
-} from './ApplicationForm.styles';
+import { List, ListItem, SubTitle, Title } from './ApplicationForm.styles';
 import './ApplicationForm.css';
 
 import PrivacyPolicyModal from './PrivacyPolicyModal';
@@ -37,6 +33,7 @@ import {
 } from './ApplicationOptions';
 
 import { useTranslation } from 'react-i18next';
+import PageContainer from 'layout/PageContainer';
 
 // change to true to prefill the form with valid inputs and debug easier
 // THIS SHOULD BE FALSE WHEN MERGING CODE
@@ -109,7 +106,7 @@ const useApplicationForm = () => {
   };
 };
 
-const useApplicationFormFeedback = (t) => {
+const useApplicationFormFeedback = t => {
   const [feedbacks, setFeedbacks] = useState({});
 
   const handleFeedbackChange = (fieldName, feedback) => {
@@ -134,7 +131,9 @@ const useStepFlow = (history, validateStep, signup, t) => {
   // Step Application
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = appFormStep.length;
-  const [nextButtonLabel, setNextButtonLabel] = useState(t('step.buttons.next'));
+  const [nextButtonLabel, setNextButtonLabel] = useState(
+    t('step.buttons.next')
+  );
 
   useEffect(() => {
     currentStep === 3
@@ -202,24 +201,7 @@ const ApplicationFormValidator = (handleFeedbackChange, inputs, t) => {
       const re = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
 
       if (!re.test(value)) {
-        handleFeedbackChange(
-          fieldName,
-          t('validations.invalid_email')
-        );
-        return false;
-      } else {
-        handleFeedbackChange(fieldName, '');
-        return true;
-      }
-    },
-    validatePhone: (fieldName, value) => {
-      const re = /^\+?1?\d{9,15}$/;
-
-      if (!re.test(value)) {
-        handleFeedbackChange(
-          fieldName,
-          t('validations.invalid_phone')
-        );
+        handleFeedbackChange(fieldName, t('validations.invalid_email'));
         return false;
       } else {
         handleFeedbackChange(fieldName, '');
@@ -227,7 +209,7 @@ const ApplicationFormValidator = (handleFeedbackChange, inputs, t) => {
       }
     },
     validateYear: (fieldName, value) => {
-      const re = /^\d{4}$/;
+      const re = /^[12]\d{3}$/;
 
       if (!re.test(value)) {
         handleFeedbackChange(fieldName, t('validations.invalid_year'));
@@ -239,25 +221,19 @@ const ApplicationFormValidator = (handleFeedbackChange, inputs, t) => {
     },
     validateTermsChecked: (fieldName, value) => {
       if (value !== 'checked') {
-        handleFeedbackChange(
-          fieldName,
-          t('validations.check_terms')
-        );
+        handleFeedbackChange(fieldName, t('validations.check_terms'));
         return false;
       } else {
-        handleFeedbackChange(fieldName, '')
+        handleFeedbackChange(fieldName, '');
         return true;
       }
     },
     validateCodeOfConductChecked: (fieldName, value) => {
       if (value !== 'checked') {
-        handleFeedbackChange(
-          fieldName,
-          t('validations.check_code')
-        );
+        handleFeedbackChange(fieldName, t('validations.check_code'));
         return false;
       } else {
-        handleFeedbackChange(fieldName, '')
+        handleFeedbackChange(fieldName, '');
         return true;
       }
     }
@@ -322,12 +298,7 @@ const ApplicationFormValidator = (handleFeedbackChange, inputs, t) => {
         'major'
       ];
     } else if (step === 3) {
-      fields = [
-        'referral', 
-        'additional_comments', 
-        'terms', 
-        'code_of_conduct'
-      ];
+      fields = ['referral', 'additional_comments', 'terms', 'code_of_conduct'];
     }
 
     let valid = true;
@@ -352,6 +323,7 @@ const ApplicationFormValidator = (handleFeedbackChange, inputs, t) => {
 
 const ApplicationForm = props => {
   const { t } = useTranslation('application-form');
+  const [submissionSuccessful, setSubmissionSuccessful] = useState(undefined)
 
   const pushSignupToDataLayer = (email) => {
     window.dataLayer = window.dataLayer || [];
@@ -384,11 +356,13 @@ const ApplicationForm = props => {
     return requests.post('application/', data).then(
       response => {
         if (DEBUG) console.log(response);
+        setSubmissionSuccessful(true);
         pushSignupToDataLayer(data['email'])
         return true;
       },
       error => {
         if (DEBUG) console.log(error);
+        setSubmissionSuccessful(false);
         return false;
       }
     );
@@ -421,7 +395,6 @@ const ApplicationForm = props => {
     t
   );
 
-
   const appStepList = appFormStep.map(step => {
     return (
       <Step
@@ -436,10 +409,10 @@ const ApplicationForm = props => {
   });
 
   return (
-    <Container>
+    <PageContainer>
       <Section>
         <Container>
-          <Segment>
+          <Segment padded>
             <Step.Group fluid>{appStepList}</Step.Group>
             <Grid>
               <Grid.Row>
@@ -454,6 +427,8 @@ const ApplicationForm = props => {
                     validateField={validateField}
                     stepClick={stepClick}
                     nextButtonLabel={nextButtonLabel}
+                    submissionSuccessful={submissionSuccessful}
+                    setSubmissionSuccessful={setSubmissionSuccessful}
                     t={t}
                   />
                 </Grid.Column>
@@ -472,7 +447,7 @@ const ApplicationForm = props => {
           </Segment>
         </Container>
       </Section>
-    </Container>
+    </PageContainer>
   );
 };
 
@@ -487,6 +462,8 @@ const ApplicationFormInputs = props => {
     stepClick,
     nextButtonLabel,
     feedbacks,
+    submissionSuccessful,
+    setSubmissionSuccessful,
     t
   } = props;
 
@@ -505,6 +482,7 @@ const ApplicationFormInputs = props => {
               placeholder={t('fields.first_name.placeholder')}
               name="first_name"
               type="text"
+              maxLength="100"
               onBlur={handleValidateOnBlur}
               onChange={handleInputChange}
               value={inputs.first_name}
@@ -519,6 +497,7 @@ const ApplicationFormInputs = props => {
               placeholder={t('fields.last_name.placeholder')}
               name="last_name"
               type="text"
+              maxLength="100"
               onBlur={handleValidateOnBlur}
               onChange={handleInputChange}
               value={inputs.last_name}
@@ -532,6 +511,7 @@ const ApplicationFormInputs = props => {
               placeholder={t('fields.preferred_name.placeholder')}
               name="preferred_name"
               type="text"
+              maxLength="100"
               onChange={handleInputChange}
               value={inputs.preferred_name}
             />
@@ -540,7 +520,7 @@ const ApplicationFormInputs = props => {
             <Form.Field
               fluid
               required
-              id='form-select-control-gender'
+              id="form-select-control-gender"
               control={Select}
               options={getGenderOptions(t)}
               label={t('fields.gender.label')}
@@ -577,6 +557,7 @@ const ApplicationFormInputs = props => {
               placeholder={t('fields.country_of_origin.placeholder')}
               name="country_of_origin"
               type="text"
+              maxLength="100"
               onBlur={handleValidateOnBlur}
               onChange={handleInputChange}
               value={inputs.country_of_origin}
@@ -591,6 +572,7 @@ const ApplicationFormInputs = props => {
               placeholder={t('fields.email.placeholder')}
               name="email"
               type="email"
+              maxLength="100"
               onBlur={handleValidateOnBlur}
               onChange={handleInputChange}
               value={inputs.email}
@@ -630,6 +612,7 @@ const ApplicationFormInputs = props => {
               placeholder={t('fields.school_name.placeholder')}
               name="school_name"
               type="text"
+              maxLength="100"
               onBlur={handleValidateOnBlur}
               onChange={handleInputChange}
               value={inputs.school_name}
@@ -646,6 +629,7 @@ const ApplicationFormInputs = props => {
               placeholder={t('fields.school_city.placeholder')}
               name="school_city"
               type="text"
+              maxLength="100"
               onBlur={handleValidateOnBlur}
               onChange={handleInputChange}
               value={inputs.school_city}
@@ -659,6 +643,7 @@ const ApplicationFormInputs = props => {
               placeholder={t('fields.school_state.placeholder')}
               name="school_state"
               type="text"
+              maxLength="100"
               onBlur={handleValidateOnBlur}
               onChange={handleInputChange}
               value={inputs.school_state}
@@ -673,6 +658,7 @@ const ApplicationFormInputs = props => {
               placeholder={t('fields.school_country.placeholder')}
               name="school_country"
               type="text"
+              maxLength="100"
               onBlur={handleValidateOnBlur}
               onChange={handleInputChange}
               value={inputs.school_country}
@@ -689,6 +675,7 @@ const ApplicationFormInputs = props => {
               placeholder={t('fields.destination_school.placeholder')}
               name="destination_school"
               type="text"
+              maxLength="100"
               onChange={handleInputChange}
               value={inputs.destination_school}
             />
@@ -701,6 +688,7 @@ const ApplicationFormInputs = props => {
               placeholder={t('fields.major.placeholder')}
               name="major"
               type="text"
+              maxLength="100"
               onBlur={handleValidateOnBlur}
               onChange={handleInputChange}
               value={inputs.major}
@@ -735,13 +723,14 @@ const ApplicationFormInputs = props => {
                 placeholder={t('fields.other_referral.placeholder')}
                 name="other_referral"
                 type="text"
+                maxLength="100"
                 onChange={handleInputChange}
                 value={inputs.other_referral}
               />
             )}
           </Form.Group>
           <Form.Group grouped>
-            <label>Choose topics interested in:</label>
+            <label>{t('fields.interest_topics.label')}</label>
             {getTopicsOptions(t).map(topic => {
               return (
                 <Form.Field
@@ -761,9 +750,10 @@ const ApplicationFormInputs = props => {
               id="form-input-control-other-topic"
               control={Input}
               label={t('fields.other_topic.label')}
-              placeholder={('fields.other_topic.placeholder')}
+              placeholder={'fields.other_topic.placeholder'}
               name="other_topic"
               type="text"
+              maxLength="100"
               onChange={handleInputChange}
               value={inputs.other_topic}
             />
@@ -774,6 +764,7 @@ const ApplicationFormInputs = props => {
             placeholder={t('fields.additional_input.placeholder')}
             name="additional_input"
             type="text"
+            maxLength="1000"
             onChange={handleInputChange}
             value={inputs.additional_input}
           />
@@ -784,8 +775,14 @@ const ApplicationFormInputs = props => {
             label={{
               children: (
                 <span>
-                  {t('fields.terms_and_conditions.label.agree')} <TermsModal>{t('fields.terms_and_conditions.label.terms')}</TermsModal> {t('fields.terms_and_conditions.label.and')}{' '}
-                  <PrivacyPolicyModal>{t('fields.terms_and_conditions.label.privacy_policy')}</PrivacyPolicyModal>
+                  {t('fields.terms_and_conditions.label.agree')}{' '}
+                  <TermsModal>
+                    {t('fields.terms_and_conditions.label.terms')}
+                  </TermsModal>{' '}
+                  {t('fields.terms_and_conditions.label.and')}{' '}
+                  <PrivacyPolicyModal>
+                    {t('fields.terms_and_conditions.label.privacy_policy')}
+                  </PrivacyPolicyModal>
                 </span>
               )
             }}
@@ -808,7 +805,10 @@ const ApplicationFormInputs = props => {
             label={{
               children: (
                 <span>
-                  {t('fields.code_of_conduct.label.agree')} <CodeOfConductModal>{t('fields.code_of_conduct.label.code')}</CodeOfConductModal>
+                  {t('fields.code_of_conduct.label.agree')}{' '}
+                  <CodeOfConductModal>
+                    {t('fields.code_of_conduct.label.code')}
+                  </CodeOfConductModal>
                 </span>
               )
             }}
@@ -824,10 +824,20 @@ const ApplicationFormInputs = props => {
               {feedbacks['code_of_conduct']}
             </Label>
           )}
-        </div>
+          {
+            submissionSuccessful === false &&
+            <Message
+              negative
+              header={t('submission_error.header')}
+              content={t('submission_error.content')}
+              size="mini"
+              icon="exclamation circle"
+              onDismiss={() => {setSubmissionSuccessful(undefined)}}
+            />
+          }
+          </div>
       )}
       <br />
-
       <Button.Group id="actionButtons" horizontal="true">
         <Button
           id="form-button-control-previous"

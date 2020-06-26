@@ -22,7 +22,6 @@ const tagManagerArgs = {
 }
 TagManager.initialize(tagManagerArgs)
 
-
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <GlobalStyle />
