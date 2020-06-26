@@ -142,6 +142,20 @@ const useStepFlow = (history, validateStep, signup, t) => {
       : setNextButtonLabel(t('step.buttons.next'));
   }, [currentStep]);
 
+  const pushStepToDataLayer = (application_step) => {
+    let step_names = {
+      1: 'personal',
+      2: 'academic'
+    }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'event': 'application_progress',
+      'application_step': application_step, // should be 1 or 2
+      'step_name': step_names[application_step]// finished the first section → 'personal'; finished the second section → 'academic'
+    });
+
+  }
+
   const stepClick = action => {
     if (action === 'prev' && currentStep > 1) {
       setCurrentStep(currentStep - 1);
@@ -150,6 +164,7 @@ const useStepFlow = (history, validateStep, signup, t) => {
       currentStep < totalSteps &&
       validateStep(currentStep)
     ) {
+      pushStepToDataLayer(currentStep);
       setCurrentStep(currentStep + 1);
     } else if (
       action === 'next' &&
@@ -338,6 +353,14 @@ const ApplicationFormValidator = (handleFeedbackChange, inputs, t) => {
 const ApplicationForm = props => {
   const { t } = useTranslation('application-form');
 
+  const pushSignupToDataLayer = (email) => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'event': 'submit_application',
+      'email': email.toLowerCase().trim() // lower-cased and trimmed
+    });
+  }
+
   const signup = () => {
     const data = inputs;
     data['interest_topics'] = [];
@@ -361,6 +384,7 @@ const ApplicationForm = props => {
     return requests.post('application/', data).then(
       response => {
         if (DEBUG) console.log(response);
+        pushSignupToDataLayer(data['email'])
         return true;
       },
       error => {
