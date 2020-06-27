@@ -7,6 +7,7 @@ import mixins from 'styles/mixins';
 import theme from 'styles/theme';
 import { SubscribeNewsletter } from 'utils/agent';
 import TagManager from 'react-gtm-module';
+import {logSubscribe} from "../../utils/google_tag_manager_helpers";
 
 const Subscribe = () => {
   const { t } = useTranslation(['general', 'subscribe']);
@@ -16,33 +17,13 @@ const Subscribe = () => {
     setEmail(data.value);
   };
 
-  // taken from https://jameshfisher.com/2017/10/30/web-cryptography-api-hello-world/
-  async function sha256(str) {
-    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder("utf-8").encode(str));
-    return Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('');
-  }
-
   const handleSubmit = () => {
     SubscribeNewsletter.post({ email }).then(response => {
       if (response.error) {
         alert(response.error);
       } else {
-        sha256(email).then(hash => {
-          const subscribeTagManagerArgs = {
-            dataLayer: {
-             'event': 'submit_newsletter',
-             'hash_email': hash,
-            }
-          }
-          TagManager.dataLayer(subscribeTagManagerArgs);
-        })
+          logSubscribe(email);
         alert(t('subscribe:subscribe_success'));
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            'event': 'submit_newsletter',
-            'email': email.toLowerCase().trim() // lower-cased and trimmed
-        });
-
       }
     });
   };
