@@ -38,7 +38,7 @@ import {
   logApplicationCompletion,
   logApplicationProgress,
   logApplicationView
-} from "../../utils/google_tag_manager_helpers";
+} from "utils/google_tag_manager_helpers";
 
 // change to true to prefill the form with valid inputs and debug easier
 // THIS SHOULD BE FALSE WHEN MERGING CODE

@@ -28,7 +28,6 @@ export const logApplyNowClick = () => {
 }
 
 export const logApplicationView = () => {
-  console.log("in log application view");
    const appViewTagManagerArgs = {
      'event': 'application_view',
      'page_type': 'application'
