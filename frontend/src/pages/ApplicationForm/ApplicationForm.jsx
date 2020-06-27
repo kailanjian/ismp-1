@@ -34,6 +34,11 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import PageContainer from 'layout/PageContainer';
+import {
+  logApplicationCompletion,
+  logApplicationProgress,
+  logApplicationView
+} from "../../utils/google_tag_manager_helpers";
 
 // change to true to prefill the form with valid inputs and debug easier
 // THIS SHOULD BE FALSE WHEN MERGING CODE
@@ -86,7 +91,7 @@ const useApplicationForm = () => {
   const [inputs, setInputs] = useState(defaultState);
 
   const handleInputChange = (_, data) => {
-    console.log(_, data);
+    if (DEBUG) console.log(_, data);
 
     let value = data.value;
 
@@ -141,20 +146,6 @@ const useStepFlow = (history, validateStep, signup, t) => {
       : setNextButtonLabel(t('step.buttons.next'));
   }, [currentStep]);
 
-  const pushStepToDataLayer = (application_step) => {
-    let step_names = {
-      1: 'personal',
-      2: 'academic'
-    }
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      'event': 'application_progress',
-      'application_step': application_step, // should be 1 or 2
-      'step_name': step_names[application_step]// finished the first section → 'personal'; finished the second section → 'academic'
-    });
-
-  }
-
   const stepClick = action => {
     if (action === 'prev' && currentStep > 1) {
       setCurrentStep(currentStep - 1);
@@ -163,7 +154,7 @@ const useStepFlow = (history, validateStep, signup, t) => {
       currentStep < totalSteps &&
       validateStep(currentStep)
     ) {
-      pushStepToDataLayer(currentStep);
+      logApplicationProgress(currentStep);
       setCurrentStep(currentStep + 1);
     } else if (
       action === 'next' &&
@@ -325,13 +316,9 @@ const ApplicationForm = props => {
   const { t } = useTranslation('application-form');
   const [submissionSuccessful, setSubmissionSuccessful] = useState(undefined)
 
-  const pushSignupToDataLayer = (email) => {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      'event': 'submit_application',
-      'email': email.toLowerCase().trim() // lower-cased and trimmed
-    });
-  }
+  useEffect(() => {
+    logApplicationView();
+      }, []);
 
   const signup = () => {
     const data = inputs;
@@ -357,7 +344,7 @@ const ApplicationForm = props => {
       response => {
         if (DEBUG) console.log(response);
         setSubmissionSuccessful(true);
-        pushSignupToDataLayer(data['email'])
+        logApplicationCompletion(data['email'])
         return true;
       },
       error => {
