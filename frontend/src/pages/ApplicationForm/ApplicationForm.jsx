@@ -728,7 +728,7 @@ const ApplicationFormInputs = props => {
                   onChange={handleInputChange}
                   type="checkbox"
                 />
-              );
+              )
             })}
           </Form.Group>
           {inputs['other'] && (
