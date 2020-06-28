@@ -8,7 +8,9 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "prettier": "^2.0.5"
+  },
   "devDependencies": {
     "eslint": "^7.3.1",
     "eslint-plugin-react": "^7.20.0"
