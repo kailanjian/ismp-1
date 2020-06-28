@@ -7,8 +7,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install modules
       run: yarn
-      with:
-        files: frontend/
     - name: Run ESLint
       run: eslint . --ext .js
       with:
