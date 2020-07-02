@@ -15,7 +15,7 @@ import { Grid, Select } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
 const Mentors = ({ history }) => {
-  const { t } = useTranslatio'mentors');
+  const { t } = useTranslation('mentors');
 
   // Base on url - Initialize
   const search = history.location.search;
