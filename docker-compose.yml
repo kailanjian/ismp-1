@@ -79,3 +79,8 @@ services:
       # Overwrite docker image's src directories with locally modified code
       - ./frontend/src:/app/frontend/src
       - ./frontend/public:/app/frontend/public
+  githooks:
+    image: sourceboat/docker-compose-githooks:latest
+    volumes:
+      - ./.git:/tmp/.git
+      - ./.githooks:/tmp/.githooks
