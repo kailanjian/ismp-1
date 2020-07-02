@@ -13,7 +13,7 @@ printf "\nValidating Javascript:\n"
 
 # Check for eslint
 if [[ ! -x "$ESLINT" ]]; then
-  printf "\t\033[41mInstall ESlint\033[0m (cd frontend; yarn add eslint) on your local machine if you want to lint your JS changes"
+  printf "\t\033[41mInstall ESlint\033[0m (cd frontend; yarn install) on your local machine if you want to lint your JS changes"
   exit 0
 
 else
