@@ -140,13 +140,13 @@ const useStepFlow = (history, validateStep, signup, t) => {
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = appFormStep.length;
   const [nextButtonLabel, setNextButtonLabel] = useState(
-    t('step.buttons.next')
+    'step.buttons.next'
   );
 
   useEffect(() => {
     currentStep === 3
-      ? setNextButtonLabel(t('step.buttons.submit'))
-      : setNextButtonLabel(t('step.buttons.next'));
+      ? setNextButtonLabel('step.buttons.submit')
+      : setNextButtonLabel('step.buttons.next');
   }, [currentStep]);
 
   const stepClick = action => {
@@ -865,7 +865,7 @@ const ApplicationFormInputs = props => {
         />
         <Button
           id="form-button-control-next"
-          content={nextButtonLabel}
+          content={t(nextButtonLabel)}
           primary
           type="button"
           size="large"
