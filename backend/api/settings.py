@@ -120,6 +120,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'request_logging.middleware.LoggingMiddleware',
     # AxesMiddleware should be the last middleware in the MIDDLEWARE list.
     # It only formats user lockout messages and renders Axes lockout responses
     # on failed user authentication attempts from login views.
@@ -151,10 +152,17 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
     },
-    'root': {
-        'handlers': ['console'],
-        'level': 'DEBUG',
+    'loggers': {
+        'django.request': {
+            'handlers': ['console'],
+            'level': os.getenv("LOG_LEVEL"),  # change debug level as appropiate
+            'propagate': False,
+        },
     },
+    # 'root': {
+    #     'handlers': ['console'],
+    #     'level': os.getenv("LOG_LEVEL"),
+    # },
 }
 
 TEMPLATES = [

@@ -49,6 +49,7 @@ services:
       DB_PORT: 5432
       DB_USER: ismp
       DEBUG: "TRUE"
+      LOG_LEVEL: "INFO"
       # this is not the key that will be used in production. Also please note
       # that in environment variables in docker-compose.yml, you have to
       # escape the $ character with another $ ($$).
