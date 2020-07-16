@@ -74,6 +74,11 @@
       "label": "美国学校名",
       "placeholder": "学校名"
     },
+    "other_destination_school": {
+      "label": "其它学校",
+      "placeholder": "学校名",
+      "other_option": "其他"
+    },
     "major": {
       "label": "目前或未来专业",
       "placeholder": "专业"

@@ -75,3 +75,50 @@ export const getTopicsOptions = t => [
   },
   { key: 'o', text: t('fields.options.topics.other'), value: 'other' }
 ];
+
+export const getDestinationSchoolOptions = t => {
+  let school_names = [
+    "Berkeley City College",
+    "California State University, East Bay",
+    "Diablo Valley College",
+    "George Mason University",
+    "George Washington University",
+    "Orange Coast College",
+    "Rutgers University",
+    "University of California, Berkeley",
+    "University of California, Davis",
+    "University of California, Irvine",
+    "University of California, Los Angeles",
+    "University of California, San Diego",
+    "University of Maryland",
+    "University of North Carolina, Chapel Hill",
+    "University of Minnesota, Minneapolis",
+    "University of Washington",
+    "University of Southern California",
+    "University of Texas, Austin",
+    "Sacramento State University",
+    "National University",
+    "Santa Clara University",
+    "De Anza College",
+    "Foothill College",
+    "Chabot College",
+    "Ohlone College",
+    "College of San Mateo",
+    "Laney College",
+    "College of Alameda"
+  ].sort();
+
+  let school_options = school_names.map((school_name) => ({
+    key: school_name,
+    text: school_name,
+    value: school_name
+  }));
+
+  school_options.push({
+    key: 'other',
+    text: t('fields.other_destination_school.other_option'),
+    value: 'other'
+  })
+
+  return school_options;
+}

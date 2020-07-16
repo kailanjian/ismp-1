@@ -74,6 +74,11 @@
       "label": "US School Name",
       "placeholder": "School Name"
     },
+    "other_destination_school": {
+      "label": "Other School",
+      "placeholder": "School Name",
+      "other_option": "Other"
+    },
     "major": {
       "label": "Current or Future Major",
       "placeholder": "Major"

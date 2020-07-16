@@ -37,7 +37,8 @@ import {
   getGenderOptions,
   getGradeLevelOptions,
   getReferralOptions,
-  getTopicsOptions
+  getTopicsOptions,
+  getDestinationSchoolOptions
 } from './ApplicationOptions';
 
 import { useTranslation } from 'react-i18next';
@@ -249,6 +250,7 @@ const ApplicationFormValidator = (handleFeedbackChange, inputs, t) => {
     school_city: [validations.validateNotBlank],
     school_state: [],
     school_country: [validations.validateNotBlank],
+    destination_school: [],
     major: [validations.validateNotBlank],
     referral: [validations.validateNotBlank],
     additional_comments: [],
@@ -291,7 +293,7 @@ const ApplicationFormValidator = (handleFeedbackChange, inputs, t) => {
         'school_city',
         'school_state',
         'school_country',
-        'school_name',
+        'destination_school',
         'major'
       ];
     } else if (step === 3) {
@@ -359,6 +361,10 @@ const ApplicationForm = props => {
 
     if (data['other_referral']) {
       data['referral'] = `${data['referral']}: ${data['other_referral']}`;
+    }
+
+    if (data['other_destination_school'] && data['destination_school'] === 'other') {
+      data['destination_school'] = `${data['destination_school']}: ${data['other_destination_school']}`;
     }
 
     return requests.post('application/', data).then(
@@ -680,15 +686,28 @@ const ApplicationFormInputs = props => {
             <Form.Field
               fluid
               id="form-input-control-new-us-school-name"
-              control={Input}
+              control={Select}
+              clearable
               label={t('fields.destination_school.label')}
               placeholder={t('fields.destination_school.placeholder')}
+              search
               name="destination_school"
-              type="text"
-              maxLength="100"
+              options={getDestinationSchoolOptions(t)}
               onChange={handleInputChange}
               value={inputs.destination_school}
             />
+            {inputs.destination_school === 'other' && (
+              <Form.Field
+                control={Input}
+                label={t('fields.other_destination_school.label')}
+                placeholder={t('fields.other_destination_school.placeholder')}
+                name="other_destination_school"
+                type="text"
+                maxLength="100"
+                onChange={handleInputChange}
+                value={inputs.other_destination_school}
+              />
+            )}
             <Form.Field
               fluid
               required
