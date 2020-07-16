@@ -42,12 +42,13 @@ const Home = () => {
       await BlogPosts.getWebinars()
         .then(results => {
           setRecentWebinars(results.results);
-          })
-            .catch(error => {
-              const fallbackWebinars = blogPostFallbackData.filter(
-                blogpostContentJson => blogpostContentJson.blogpost.type === "webinar"
-              );
-              setRecentWebinars(fallbackWebinars);
+        })
+        .catch(error => {
+          const fallbackWebinars = blogPostFallbackData.filter(
+            blogpostContentJson =>
+              blogpostContentJson.blogpost.type === 'webinar'
+          );
+          setRecentWebinars(fallbackWebinars);
         });
     };
     getRecentWebinars();
@@ -91,7 +92,7 @@ const WhoAreWeSection = ({ t }) => (
           autoplay={false}
           active={true}
           icon="arrow circle down"
-          id="Bb_gzNGsoew"
+          id="3yg9_EHXrMg"
           iframe={{ allowFullScreen: true }}
           placeholder="/images/image-16by9.png"
           source="youtube"
@@ -113,29 +114,41 @@ const MentorSection = ({ t }) => (
 );
 
 const WebinarHighlightsSection = ({ t, webinars }) => {
-    let numWebinars = webinars.length
-    if (numWebinars === 0) {
-        return <></>;
-    }
-    const maxWebinarsToDisplay = 2;
-    const numWebinarsToDisplay = Math.min(numWebinars, maxWebinarsToDisplay);
-    const webinarsToDisplay = webinars.slice(0, numWebinarsToDisplay);
-    return (
-      <>
-        <SectionHeaderContainer>
-          <Header size="h2" font="serif">
-            {t('webinar_highlights')}
-          </Header>
-          <HorizontalSpacer/>
-          <Link to={{pathname: "/blog-list", state: {term: '', type: 'webinar'}}}>{t('general:view_all')}</Link>
-        </SectionHeaderContainer>
-        <Grid doubling stackable columns={numWebinarsToDisplay}>
-          {webinarsToDisplay.map((webinar, index) => {
-            return <Grid.Column><WebinarHighlight key={webinar.id} webinar={webinar} index={index}/></Grid.Column>
-           })}
-        </Grid>
-      </>
-    )
+  let numWebinars = webinars.length;
+  if (numWebinars === 0) {
+    return <></>;
+  }
+  const maxWebinarsToDisplay = 2;
+  const numWebinarsToDisplay = Math.min(numWebinars, maxWebinarsToDisplay);
+  const webinarsToDisplay = webinars.slice(0, numWebinarsToDisplay);
+  return (
+    <>
+      <SectionHeaderContainer>
+        <Header size="h2" font="serif">
+          {t('webinar_highlights')}
+        </Header>
+        <HorizontalSpacer />
+        <Link
+          to={{ pathname: '/blog-list', state: { term: '', type: 'webinar' } }}
+        >
+          {t('general:view_all')}
+        </Link>
+      </SectionHeaderContainer>
+      <Grid doubling stackable columns={numWebinarsToDisplay}>
+        {webinarsToDisplay.map((webinar, index) => {
+          return (
+            <Grid.Column>
+              <WebinarHighlight
+                key={webinar.id}
+                webinar={webinar}
+                index={index}
+              />
+            </Grid.Column>
+          );
+        })}
+      </Grid>
+    </>
+  );
 };
 
 const FeaturedBlogPostsSection = ({ t, blogPosts }) => (
