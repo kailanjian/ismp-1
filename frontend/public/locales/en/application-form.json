@@ -13,7 +13,7 @@
       "step_name": "Academic",
       "title": "Section 2: Academic Information",
       "subtitle": "Current School Information",
-      "new_school": "If attending a new U.S school next school term:"
+      "new_school": "If attending a new US school next school term:"
     },
     "3": {
       "step_name": "Interest",
@@ -106,7 +106,7 @@
     "terms_and_conditions": {
       "label": {
         "agree": "I agree to the",
-        "terms": "Terms and Services",
+        "terms": "Terms of Use",
         "and": "and",
         "privacy_policy": "Privacy Policy"
       }
