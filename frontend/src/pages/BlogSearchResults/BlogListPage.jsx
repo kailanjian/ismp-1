@@ -16,6 +16,7 @@ import {
   Message,
   Grid
 } from 'semantic-ui-react';
+import { Helmet } from 'react-helmet';
 
 // Utils
 import { requests } from 'utils/agent';
@@ -26,12 +27,17 @@ import { useDebounce } from 'use-debounce';
 // Styling
 import { FlexWrapper, PaginationWrapper } from './BlogListPage.styles';
 
-const BlogSearch = (props) => {
-
+const BlogSearch = props => {
   const defaultInputState = {
-    query: props.location.state && props.location.state.term ? props.location.state.term : '',
+    query:
+      props.location.state && props.location.state.term
+        ? props.location.state.term
+        : '',
     topic: 'all',
-    type: props.location.state && props.location.state.type ? props.location.state.type : 'all'
+    type:
+      props.location.state && props.location.state.type
+        ? props.location.state.type
+        : 'all'
   };
 
   // Component State
@@ -167,6 +173,14 @@ const BlogSearch = (props) => {
 
   return (
     <PageContainer>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Blogs | ISMP</title>
+        <meta
+          name="description"
+          content="Our list of blog resources to help you succeed in your life in the US."
+        />
+      </Helmet>
       <PageHeader title="Blogs"></PageHeader>
       <Section>
         <Form size="large">

@@ -16,4 +16,4 @@ docker-compose -f docker-compose.yml -f docker-compose.production.yml run \
 
 output=$(curl -s --max-time 5 --retry 5 --retry-connrefused localhost:8080/ 2>/dev/null)
 
-echo $output | grep -o "<title>ISMP: International Student Mentorship Program</title>"
+echo $output | grep -o "<title>International Student Mentorship Program | ISMP</title>"

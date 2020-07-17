@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Image } from 'semantic-ui-react';
 import { Grid } from 'semantic-ui-react';
+import { Helmet } from 'react-helmet';
 
 import { logApplyNowClick } from 'utils/google_tag_manager_helpers';
 
@@ -59,6 +60,14 @@ const CollegeListSection = ({ t }) => (
 
 const SeeYourCampusSection = ({ t }) => (
   <Section>
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>About Us | ISMP</title>
+      <meta
+        name="description"
+        content="International Student Mentorship Program is a nonprofit organization with a network of volunteer mentors across the United States."
+      />
+    </Helmet>
     <SectionHeader center>{t('see_your_campus.title')}</SectionHeader>
     <Grid doubling stackable columns={1}>
       <Grid.Column>

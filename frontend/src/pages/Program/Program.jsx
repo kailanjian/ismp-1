@@ -8,6 +8,7 @@ import { programDetails, programInstructions } from 'mock-data/program';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Grid } from 'semantic-ui-react';
+import { Helmet } from 'react-helmet';
 
 const Program = () => {
   const { t } = useTranslation('program');
@@ -20,6 +21,15 @@ const Program = () => {
   return (
     <PageContainer>
       <PageHeader {...pageHeaderProps} />
+
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>ISMP Program</title>
+        <meta
+          name="description"
+          content="Find out how you can join ISMP and get paired with a mentor."
+        />
+      </Helmet>
 
       <Section>
         <Grid doubling stackable columns={4}>

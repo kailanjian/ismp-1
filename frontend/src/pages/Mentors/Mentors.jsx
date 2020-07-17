@@ -13,6 +13,7 @@ import mixins from '../../styles/mixins';
 import { useTranslation } from 'react-i18next';
 import { Grid, Select } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const Mentors = ({ history }) => {
   const { t } = useTranslation('mentors');
@@ -76,6 +77,14 @@ const Mentors = ({ history }) => {
 
   return (
     <PageContainer>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Our Mentors | ISMP</title>
+        <meta
+          name="description"
+          content="Meet our mentors from across the US."
+        />
+      </Helmet>
       <PageHeader title={t('title')} />
       <FlexWrapper>
         <GenerateSelect />

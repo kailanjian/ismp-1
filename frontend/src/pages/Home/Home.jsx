@@ -14,6 +14,7 @@ import styled from 'styled-components';
 import mixins from 'styles/mixins';
 import theme from 'styles/theme';
 import { BlogPosts } from 'utils/agent';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
   const { t } = useTranslation(['home', 'general']);
@@ -123,6 +124,14 @@ const WebinarHighlightsSection = ({ t, webinars }) => {
   const webinarsToDisplay = webinars.slice(0, numWebinarsToDisplay);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>International Student Mentorship Program | ISMP</title>
+        <meta
+          name="description"
+          content="International Student Mentorship Program is a nonprofit organization with volunteer mentors across the United States. We are passionate about guiding international students through college and graduate school in America, from the admissions process all the way through graduation."
+        />
+      </Helmet>
       <SectionHeaderContainer>
         <Header size="h2" font="serif">
           {t('webinar_highlights')}
