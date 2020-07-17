@@ -46,12 +46,12 @@ const leadershipInfo = {
       title: 'Secretary',
       credentials: [
         {
-          title: 'B.A. Political Science and Film',
+          title: 'B.S. Bioengineering',
           organization: 'UC Berkeley'
         },
         {
           title: 'J.D.',
-          organization: 'UC Berkeley'
+          organization: 'UC Davis'
         }
       ],
       current_job: {
