@@ -17,6 +17,7 @@ class ApplicationFormViewSet(viewsets.ModelViewSet):
     """
     queryset = ApplicationForm.objects.all()
     serializer_class = ApplicationFormSerializer
+    http_method_names = ['put', 'post', 'patch', 'head', 'delete', 'options']
 
 
 class SubscribeNewsletterView(views.APIView):
