@@ -110,6 +110,9 @@ class RecommendedArticles extends Component {
     };
 
     render() {
+      if (this.state.articles.length < 1) {
+        return null;
+      }
         return (
             <MainContainer>
                 <RecommendedArticlesHeader>
