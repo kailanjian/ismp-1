@@ -87,10 +87,11 @@ class ApplicationFormViewSetTest(APITestCase):
         self.assertEqual(3, len(ApplicationForm.objects.all()))
         self.assertEqual(4, len(InterestTopic.objects.all()))
 
-    def test_get_application_form(self):
-        response = self.client.get("/api/v1/application/")
-
-        expected = ApplicationForm.objects.all()
-        serialized = ApplicationFormSerializer(expected, many=True)
-        self.assertEqual(response.data['results'], serialized.data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    # test disabled because the get request is disabled.
+    # def test_get_application_form(self):
+    #     response = self.client.get("/api/v1/application/")
+    #
+    #     expected = ApplicationForm.objects.all()
+    #     serialized = ApplicationFormSerializer(expected, many=True)
+    #     self.assertEqual(response.data['results'], serialized.data)
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
