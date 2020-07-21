@@ -93,7 +93,7 @@ const WhoAreWeSection = ({ t }) => (
           autoplay={false}
           active={true}
           icon="arrow circle down"
-          id="3yg9_EHXrMg"
+          id="q8BLjKq1XvU"
           iframe={{ allowFullScreen: true }}
           placeholder="/images/image-16by9.png"
           source="youtube"
