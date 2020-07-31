@@ -1,5 +1,13 @@
 {
   "get_connected": "與導師建立聯繫",
+  "webinar_section": {
+    "title": "This Weekend: 特殊讲座!!",
+    "webinar_title": "How to Graduate from a better college with less money.",
+    "webinar_blurb": "Practical advice for international studens in the US or planning to come to the US in the future concerned about paying high tuition cost for online classes.",
+    "us_time": "8/1 Saturday 7PM (PST)",
+    "asia_time": "8/2 Sunday 10AM (China Time), 11AM (Korea Time), 11AM (Japan Time)",
+    "action": "Join Us on Zoom"
+  },
   "who_section": {
     "title": "我们是谁？",
     "blurb": "国际学生导师项目(International Student Mentorship Program)是一个非营利组织，在美国各地都有志愿者导师。我们的宗旨是指导在美国就读（或有意赴美就读）本科及研究所的国际学生，从入学申请一直到毕业。"

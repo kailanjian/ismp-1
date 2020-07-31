@@ -16,7 +16,7 @@ const StyledImage = styled.img`
   width: 100%;
   object-fit: cover;
   filter: brightness(0.6);
-  height: calc(100vh - 40px);
+  height: calc(60vh - 40px);
 `;
 
 const StyledImageText = styled.div`
