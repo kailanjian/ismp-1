@@ -92,8 +92,8 @@ const SpecialWebinarSection = ({ t }) => (
           rel="noopener noreferrer"
         >
           <img
-            src="https://ismp-us-east-1.s3.amazonaws.com/home/webinar_graduate_college_less_money.jpg"
-            alt="Special Webinar"
+            src="https://ismp-us-east-1.s3.amazonaws.com/home/webinar_graduate_college_less_money_v2.jpg"
+            alt="Special Webinar: Graduate College Less Money"
           />
         </a>
       </Grid.Column>
