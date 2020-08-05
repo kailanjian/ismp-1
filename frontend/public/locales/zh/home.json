@@ -2,11 +2,15 @@
   "get_connected": "與導師建立聯繫",
   "webinar_section": {
     "title": "This Weekend: 特殊讲座!",
-    "webinar_title": "How to Graduate from a better college with less money.",
-    "webinar_blurb": "Practical advice for current & future international students in America.",
-    "us_time": "8/1 Saturday 7PM (PST)",
-    "asia_time": "8/2 Sunday 10AM (China Time), 11AM (Korea Time), 11AM (Japan Time)",
+    "webinar_title": "How to avoid scams while studying in America",
+    "webinar_blurb": "Essential pointers and tips for international students to avoid being victims of scam calls & emails.",
+    "us_time": "8/8 Saturday 7PM (US Pacific Time)",
+    "asia_time": "8/9 Sunday 10AM (China Time), 11AM (Korea & Japan Time)",
     "action": "Join Us on Zoom"
+  },
+  "steps_section": {
+    "title": "Steps to Get Connected to a Mentor",
+    "blurb": "International Student Mentorship Program is a nonprofit organization with volunteer mentors across the United States. We are passionate about guiding international students through college and graduate school in America, from the admissions process all the way through graduation."
   },
   "who_section": {
     "title": "我们是谁？",

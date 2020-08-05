@@ -4,6 +4,19 @@ import { Responsive } from 'semantic-ui-react';
 import styled from 'styled-components';
 import sizes from 'styles/sizes';
 import theme from 'styles/theme';
+import { Button } from 'semantic-ui-react';
+import { logApplyNowClick } from 'utils/google_tag_manager_helpers';
+import { useHistory } from 'react-router-dom';
+
+const style = {
+  applyNowButton: {
+    fontFamily: 'Poppins',
+    fontSize: '18px',
+    background: '#FDC82E',
+    borderRadius: '8px',
+    padding: '15px'
+  }
+};
 
 const Container = styled.section`
   position: relative;
@@ -15,7 +28,7 @@ const StyledImage = styled.img`
   display: block;
   width: 100%;
   object-fit: cover;
-  filter: brightness(0.6);
+  filter: brightness(0.5);
   height: calc(60vh - 40px);
 `;
 
@@ -56,6 +69,13 @@ const HeroImageUrl =
   'https://ismp-us-east-1.s3.amazonaws.com/components/home/ismphero_optimized.jpg';
 
 const DesktopHero = ({ translation }) => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push('/apply');
+    logApplyNowClick();
+  };
+
   return (
     <Responsive as={Container} minWidth={sizes.phone} style={{ width: '100%' }}>
       <StyledImage src={HeroImageUrl} alt="Welcome" />
@@ -66,12 +86,28 @@ const DesktopHero = ({ translation }) => {
         <StyledSubTitle>
           {translation('connecting_international_students')}
         </StyledSubTitle>
+        <Button
+          as="a"
+          inverted={false}
+          style={style.applyNowButton}
+          onClick={handleClick}
+        >
+          {translation('apply_to_get_mentor')}
+        </Button>
       </StyledImageText>
     </Responsive>
   );
 };
 
+// TODO: Figure out why there is mobile and desktop hero
 const MobileHero = ({ translation }) => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push('/apply');
+    logApplyNowClick();
+  };
+
   return (
     <Responsive as={Container} maxWidth={sizes.phone}>
       <StyledImage src={HeroImageUrl} alt="Welcome" />
@@ -83,17 +119,14 @@ const MobileHero = ({ translation }) => {
         <MobileSubTitle>
           {translation('connecting_international_students')}{' '}
         </MobileSubTitle>
-
-        {/* Removing for Issue #156, but leaving commented */}
-        {/* <ButtonContainer>
-          <Link as={Link} to="/application-form">
-            <MobileApply>{translation('apply_now')}</MobileApply>
-          </Link>
-
-          <Link as={Link} to="/about">
-            <MobileExplore>{translation('explore')}</MobileExplore>
-          </Link>
-        </ButtonContainer> */}
+        <Button
+          as="a"
+          inverted={false}
+          style={style.applyNowButton}
+          onClick={handleClick}
+        >
+          {translation('apply_to_get_mentor')}
+        </Button>
       </StyledImageText>
     </Responsive>
   );

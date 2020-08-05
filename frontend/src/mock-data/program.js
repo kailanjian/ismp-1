@@ -10,13 +10,13 @@ export const programInstructions = [
   },
   {
     icon: 'group',
-    title: 'Attend a Meet & Greet Orientation',
+    title: 'Attend an Orientation',
     blurbHtml:
-      '<p>After you apply, you will receive an email on the times and dates for the orientation. If you did not get an email with the orientation dates within a week of applying, please <a href="mailto:info@internationalmentorship.org">contact us</a></p>'
+      '<p>After you apply, you will receive an email on the times and dates for a "Meet & Greet" orientation. If you did not get an email with the orientation dates within a week of applying, please <a href="mailto:info@internationalmentorship.org">contact us</a></p>'
   },
   {
     icon: 'calendar alternate outline',
-    title: '6 Weeks',
+    title: 'Meet your Mentor',
     blurbHtml:
       '<p>Meet with your mentor once a week for 6 weeks, in person or online</p>'
   },
