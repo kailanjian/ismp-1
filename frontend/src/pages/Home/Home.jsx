@@ -60,7 +60,7 @@ const Home = () => {
   return (
     <>
       <HeroImage />
-      <SpecialWebinarSection t={t} />
+      <!--<SpecialWebinarSection t={t} />-->
       <ProgramSection t={t} />
       <WhoAreWeSection t={t} />
       <MentorSection t={t} />
