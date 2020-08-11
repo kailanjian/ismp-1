@@ -9,7 +9,7 @@ import SectionHeader from 'layout/SectionHeader';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Embed, Grid, Button } from 'semantic-ui-react';
+import { Embed, Grid } from 'semantic-ui-react';
 import styled from 'styled-components';
 import mixins from 'styles/mixins';
 import theme from 'styles/theme';
@@ -60,7 +60,6 @@ const Home = () => {
   return (
     <>
       <HeroImage />
-      <SpecialWebinarSection t={t} />
       <ProgramSection t={t} />
       <WhoAreWeSection t={t} />
       <MentorSection t={t} />
@@ -83,48 +82,6 @@ const HomeSection = styled.section`
   text-align: ${props => (props.center ? 'center' : 'left')};
   ${mixins.responsivePadding};
 `;
-
-const SpecialWebinarSection = ({ t }) => (
-  <HomeSection>
-    <SectionHeader>{t('webinar_section.title')}</SectionHeader>
-    <Grid doubling stackable columns={2}>
-      <Grid.Column>
-        <a
-          href="https://go.internationalmentorship.org/webinar"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            src="https://ismp-us-east-1.s3.amazonaws.com/home/webinar_how_to_avoid_scams.jpg"
-            alt="Special Webinar: How to Avoid Scams"
-          />
-        </a>
-      </Grid.Column>
-      <Grid.Column>
-        <h3>{t('webinar_section.webinar_title')}</h3>
-        <p>{t('webinar_section.webinar_blurb')}</p>
-        <h4>{t('webinar_section.us_time')}</h4>
-        <h4>{t('webinar_section.asia_time')}</h4>
-        <a
-          href="https://go.internationalmentorship.org/webinar"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Button
-            style={{
-              background: theme.colors.yellow,
-              color: theme.colors.black,
-              fontSize: theme.fontSizes.md,
-              marginTop: '20px'
-            }}
-          >
-            {t('webinar_section.action')}
-          </Button>
-        </a>
-      </Grid.Column>
-    </Grid>
-  </HomeSection>
-);
 
 const ProgramSection = ({ t }) => (
   <HomeSection backgroundColor={theme.colors.lightGrey} center>
