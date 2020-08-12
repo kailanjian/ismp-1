@@ -18,7 +18,6 @@ import {
   ListItem,
   SubTitle,
   Title,
-  ApplicationFormTitle,
   TopInfoBox
 } from './ApplicationForm.styles';
 import './ApplicationForm.css';
@@ -143,8 +142,32 @@ const useApplicationFormFeedback = t => {
 };
 
 const useStepFlow = (history, validateStep, signup, t) => {
-  const stepClick = () => {
-    if (validateStep()) {
+  // Step Application
+  const [currentStep, setCurrentStep] = useState(1);
+  const totalSteps = appFormStep.length;
+  const [nextButtonLabel, setNextButtonLabel] = useState('step.buttons.next');
+
+  useEffect(() => {
+    currentStep === 3
+      ? setNextButtonLabel('step.buttons.submit')
+      : setNextButtonLabel('step.buttons.next');
+  }, [currentStep]);
+
+  const stepClick = action => {
+    if (action === 'prev' && currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    } else if (
+      action === 'next' &&
+      currentStep < totalSteps &&
+      validateStep(currentStep)
+    ) {
+      logApplicationProgress(currentStep);
+      setCurrentStep(currentStep + 1);
+    } else if (
+      action === 'next' &&
+      currentStep === 3 &&
+      validateStep(currentStep)
+    ) {
       signup().then(result => {
         if (result) {
           history.push('/apply-success');
@@ -155,6 +178,8 @@ const useStepFlow = (history, validateStep, signup, t) => {
 
   return {
     stepClick,
+    nextButtonLabel,
+    currentStep
   };
 };
 
@@ -226,7 +251,7 @@ const ApplicationFormValidator = (handleFeedbackChange, inputs, t) => {
     school_state: [],
     school_country: [validations.validateNotBlank],
     destination_school: [],
-    major: [],
+    major: [validations.validateNotBlank],
     referral: [validations.validateNotBlank],
     additional_comments: [],
     terms: [validations.validateTermsChecked],
@@ -249,21 +274,31 @@ const ApplicationFormValidator = (handleFeedbackChange, inputs, t) => {
     return valid;
   };
 
-  const validateStep = () => {
-    let fields = [
+  const validateStep = step => {
+    let fields = [];
+    if (step === 1) {
+      fields = [
         'first_name',
         'last_name',
         'preferred_name',
         'gender',
         'birth_year',
         'country_of_origin',
-        'email',
-        'destination_school',
-        'major',
-        'additional_comments', 
-        'terms', 
-        'code_of_conduct'
+        'email'
       ];
+    } else if (step === 2) {
+      fields = [
+        'grade_level',
+        'school_name',
+        'school_city',
+        'school_state',
+        'school_country',
+        'destination_school',
+        'major'
+      ];
+    } else if (step === 3) {
+      fields = ['referral', 'additional_comments', 'terms', 'code_of_conduct'];
+    }
 
     let valid = true;
 
@@ -295,7 +330,6 @@ const InfoBox = props => {
         <ListItem>{t('info.body1')}</ListItem>
         <ListItem>{t('info.body2')}</ListItem>
         <ListItem>{t('info.body3')}</ListItem>
-        <ListItem>{t('info.body4')}</ListItem>
       </List>
     </Segment>
   );
@@ -392,18 +426,18 @@ const ApplicationForm = props => {
     <PageContainer>
       <Section>
         <Container>
-          <Segment>
-            {/* <Title>Hello</Title> */}
+          <Segment padded>
+            <Step.Group fluid>{appStepList}</Step.Group>
             <Grid stackable>
-              {/* <Grid.Row> */}
-                {/* {isMobileWidth() && (
+              <Grid.Row>
+                {isMobileWidth() && (
                   <div>
                     <TopInfoBox>
                       <InfoBox t={t} maxHeight="175px" />
                     </TopInfoBox>
                   </div>
-                )} */}
-              {/* </Grid.Row> */}
+                )}
+              </Grid.Row>
               <Grid.Row>
                 <Grid.Column width={10}>
                   <ApplicationFormInputs
@@ -435,6 +469,7 @@ const ApplicationForm = props => {
 
 const ApplicationFormInputs = props => {
   const {
+    currentStep,
     handleValidateOnBlur,
     handleInputChange,
     inputs,
@@ -450,9 +485,9 @@ const ApplicationFormInputs = props => {
 
   return (
     <Form size="large">
+      {currentStep === 1 && (
         <div id="personalInfo">
-          <ApplicationFormTitle>Application Form</ApplicationFormTitle>
-          {isMobileWidth() && <InfoBox t={t} maxHeight="175px" />}
+          <Title>{t('step.1.title')}</Title>
           <Form.Group widths="equal">
             <Form.Field
               fluid
@@ -532,6 +567,21 @@ const ApplicationFormInputs = props => {
             <Form.Field
               fluid
               required
+              id="form-input-control-country"
+              control={Input}
+              label={t('fields.country_of_origin.label')}
+              placeholder={t('fields.country_of_origin.placeholder')}
+              name="country_of_origin"
+              type="text"
+              maxLength="100"
+              onBlur={handleValidateOnBlur}
+              onChange={handleInputChange}
+              value={inputs.country_of_origin}
+              error={renderError('country_of_origin')}
+            />
+            <Form.Field
+              fluid
+              required
               id="form-input-control-email"
               control={Input}
               label={t('fields.email.label')}
@@ -545,41 +595,198 @@ const ApplicationFormInputs = props => {
               error={renderError('email')}
             />
           </Form.Group>
+        </div>
+      )}
+      {currentStep === 2 && (
+        <div id="academicInfo">
+          <Title>{t('step.2.title')}</Title>
+          <SubTitle>{t('step.2.subtitle')}</SubTitle>
           <Form.Group widths="equal">
             <Form.Field
               fluid
               required
-              id="form-input-control-country"
+              control={Select}
+              options={getGradeLevelOptions(t)}
+              label={t('fields.grade_level.label')}
+              placeholder={t('fields.grade_level.placeholder')}
+              search
+              searchInput={{
+                id: 'form-select-control-current-grade-level'
+              }}
+              name="grade_level"
+              onBlur={() => validateField('grade_level', inputs.grade_level)}
+              onChange={handleInputChange}
+              value={inputs.grade_level}
+              error={renderError('grade_level')}
+            />
+            <Form.Field
+              fluid
+              required
+              id="form-input-control-current-school-name"
               control={Input}
-              label={t('fields.country_of_origin.label')}
-              placeholder={t('fields.country_of_origin.placeholder')}
-              name="country_of_origin"
+              label={t('fields.school_name.label')}
+              placeholder={t('fields.school_name.placeholder')}
+              name="school_name"
               type="text"
               maxLength="100"
               onBlur={handleValidateOnBlur}
               onChange={handleInputChange}
-              value={inputs.country_of_origin}
-              error={renderError('country_of_origin')}
+              value={inputs.school_name}
+              error={renderError('school_name')}
             />
           </Form.Group>
-        </div>
-        <div id="academicInfo">
-          <p>{t("step.2.which_school")}</p>
+          <Form.Group widths="equal">
+            <Form.Field
+              fluid
+              required
+              id="form-input-control-current-school-city"
+              control={Input}
+              label={t('fields.school_city.label')}
+              placeholder={t('fields.school_city.placeholder')}
+              name="school_city"
+              type="text"
+              maxLength="100"
+              onBlur={handleValidateOnBlur}
+              onChange={handleInputChange}
+              value={inputs.school_city}
+              error={renderError('school_city')}
+            />
+            <Form.Field
+              fluid
+              id="form-input-control-current-school-state"
+              control={Input}
+              label={t('fields.school_state.label')}
+              placeholder={t('fields.school_state.placeholder')}
+              name="school_state"
+              type="text"
+              maxLength="100"
+              onBlur={handleValidateOnBlur}
+              onChange={handleInputChange}
+              value={inputs.school_state}
+              error={renderError('school_state')}
+            />
+            <Form.Field
+              fluid
+              required
+              id="form-input-control-current-school-country"
+              control={Input}
+              label={t('fields.school_country.label')}
+              placeholder={t('fields.school_country.placeholder')}
+              name="school_country"
+              type="text"
+              maxLength="100"
+              onBlur={handleValidateOnBlur}
+              onChange={handleInputChange}
+              value={inputs.school_country}
+              error={renderError('school_country')}
+            />
+          </Form.Group>
+          <p>{t('step.2.new_school')}</p>
           <Form.Group widths="equal">
             <Form.Field
               fluid
               id="form-input-control-new-us-school-name"
-              control={Input}
+              control={Select}
+              clearable
               label={t('fields.destination_school.label')}
               placeholder={t('fields.destination_school.placeholder')}
+              search
               name="destination_school"
+              options={getDestinationSchoolOptions(t)}
               onChange={handleInputChange}
               value={inputs.destination_school}
-              error={renderError('destination_school')}
+            />
+            {inputs.destination_school === 'other' && (
+              <Form.Field
+                control={Input}
+                label={t('fields.other_destination_school.label')}
+                placeholder={t('fields.other_destination_school.placeholder')}
+                name="other_destination_school"
+                type="text"
+                maxLength="100"
+                onChange={handleInputChange}
+                value={inputs.other_destination_school}
+              />
+            )}
+            <Form.Field
+              fluid
+              required
+              id="form-input-control-school-major"
+              control={Input}
+              label={t('fields.major.label')}
+              placeholder={t('fields.major.placeholder')}
+              name="major"
+              type="text"
+              maxLength="100"
+              onBlur={handleValidateOnBlur}
+              onChange={handleInputChange}
+              value={inputs.major}
+              error={renderError('major')}
             />
           </Form.Group>
         </div>
+      )}
+
+      {currentStep === 3 && (
         <div id="mentorshipInterest">
+          <Title>{t('step.3.title')}</Title>
+          <Form.Group widths="equal">
+            <Form.Field
+              fluid
+              required
+              control={Select}
+              options={getReferralOptions(t)}
+              label={t('fields.referral.label')}
+              placeholder={t('fields.referral.placeholder')}
+              search
+              searchInput={{ id: 'form-select-control-referral' }}
+              name="referral"
+              onBlur={() => validateField('referral', inputs.referral)}
+              onChange={handleInputChange}
+              value={inputs.referral}
+            />
+            {inputs.referral === 'other' && (
+              <Form.Field
+                control={Input}
+                label={t('fields.other_referral.label')}
+                placeholder={t('fields.other_referral.placeholder')}
+                name="other_referral"
+                type="text"
+                maxLength="100"
+                onChange={handleInputChange}
+                value={inputs.other_referral}
+              />
+            )}
+          </Form.Group>
+          <Form.Group grouped>
+            <label>{t('fields.interest_topics.label')}</label>
+            {getTopicsOptions(t).map(topic => {
+              return (
+                <Form.Field
+                  label={topic.text}
+                  key={topic.key}
+                  control={Checkbox}
+                  name={topic.value}
+                  onChange={handleInputChange}
+                  type="checkbox"
+                />
+              );
+            })}
+          </Form.Group>
+          {inputs['other'] && (
+            <Form.Field
+              fluid
+              id="form-input-control-other-topic"
+              control={Input}
+              label={t('fields.other_topic.label')}
+              placeholder={t('fields.other_topic.placeholder')}
+              name="other_topic"
+              type="text"
+              maxLength="100"
+              onChange={handleInputChange}
+              value={inputs.other_topic}
+            />
+          )}
           <Form.TextArea
             fluid
             label={t('fields.additional_input.label')}
@@ -659,15 +866,28 @@ const ApplicationFormInputs = props => {
             />
           )}
         </div>
+      )}
       <br />
-      <Button
-        id="form-button-control-next"
-        content={t('step.buttons.submit')}
-        primary
-        type="button"
-        size="large"
-        onClick={() => stepClick('next')}
-      />
+      <Button.Group id="actionButtons" horizontal="true">
+        <Button
+          id="form-button-control-previous"
+          disabled={currentStep === 1}
+          content={t('step.buttons.prev')}
+          primary
+          type="button"
+          size="large"
+          onClick={() => stepClick('prev')}
+          style={{ marginRight: '10px' }}
+        />
+        <Button
+          id="form-button-control-next"
+          content={t(nextButtonLabel)}
+          primary
+          type="button"
+          size="large"
+          onClick={() => stepClick('next')}
+        />
+      </Button.Group>
     </Form>
   );
 };

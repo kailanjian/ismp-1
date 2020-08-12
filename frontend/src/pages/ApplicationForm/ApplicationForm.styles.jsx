@@ -5,6 +5,11 @@ export const Title = styled.h3`
   font-size: ${theme.fontSizes.lg};
 `;
 
+export const ApplicationFormTitle = styled.h2`
+  font-size: ${theme.fontSizes.xl};
+  color: ${theme.colors.black};
+`;
+
 export const SubTitle = styled.h4`
   margin-top: 10px;
   font-size: ${theme.fontSizes.md};
