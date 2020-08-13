@@ -1,28 +1,8 @@
-// For Mentors component
-// API will need to be able to support getting mentors grouped by school
 function getMentorImage(imageName) {
   return (
     'https://ismp-us-east-1.s3.amazonaws.com/mentors/headshots/' + imageName
   );
 }
-
-//function createMentorJson(
-//  name,
-//  linkedin_url = '',
-//  image = getMentorImage('Empty-Female_500x500.jpg'),
-//  credentials = [],
-//  current_job = { company: 'some company', position: 'some position' },
-//  fun_facts = '',
-//) {
-//  return {
-//    image: image,
-//    name: name,
-//    credentials: credentials,
-//    current_job: current_job,
-//    fun_facts: fun_facts,
-//    linkedin_url: linkedin_url,
-//  };
-//}
 
 function createCampusJson(
   name,
@@ -1016,9 +996,44 @@ const mentors = {
           position: ''
         },
         fun_facts: 'I love spicy food including hot pot'
+      },
+      {
+        image: getMentorImage('Justin-Yu_500x500.jpeg'),
+        name: 'Justin Yu',
+        credentials: [
+          {
+            title:
+              'B.S. Computer Science with Specialization in Bioinformatics',
+            organization: 'UC San Diego'
+          }
+        ],
+        current_job: {
+          company: 'LifeWay',
+          position: 'Software Developer in Test'
+        },
+        fun_facts: 'Plays four musical instruments',
+        linkedin_url: 'https://www.linkedin.com/in/justin-yu-98089952/'
+      },
+      {
+        image: getMentorImage('Linda-Yu_500x500.jpeg'),
+        name: 'Linda Yu',
+        credentials: [
+          {
+            title: 'MBA',
+            organization: 'UC San Diego'
+          },
+          {
+            title: 'B.S. General Biology',
+            organization: 'UC San Diego'
+          }
+        ],
+        current_job: {
+          company: 'Project Coordinator',
+          position: 'Metabolon'
+        },
+        fun_facts: 'A distant descendant of Confucius',
+        linkedin_url: 'https://www.linkedin.com/in/linda-kong-850206137/'
       }
-      // createMentorJson("Justin Yu"),
-      // createMentorJson("Linda Yu"),
     ]
   },
   rutgers: {
@@ -1044,8 +1059,6 @@ const mentors = {
         fun_facts: 'Studied abroad in Argentina and is fluent in Spanish',
         linkedin_url: 'https://www.linkedin.com/in/matthew-sallady-425777a5/'
       }
-      // createMentorJson("Justin Yu"),
-      // createMentorJson("Linda Yu"),
     ]
   }
 };
