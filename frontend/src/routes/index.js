@@ -16,6 +16,7 @@ import Program from 'pages/Program';
 import Stories from 'pages/Stories/Stories';
 import TermsOfUse from 'pages/TermsOfUse';
 import CodeOfConduct from 'pages/CodeOfConduct';
+import NotFoundPage from 'pages/NotFoundPage';
 
 export const HOME = Home;
 export const EDIT_BLOG = EditBlog;
@@ -34,6 +35,8 @@ export const PRIVACY = PrivacyPolicy;
 export const TERMS = TermsOfUse;
 export const CODE_OF_CONDUCT = CodeOfConduct;
 export const LEADERSHIP = Leadership;
+export const NOTFOUNDPAGE = NotFoundPage;
+
 export const LOGIN = Login;
 export const REGISTER = Register;
 export const PROFILE = Profile;

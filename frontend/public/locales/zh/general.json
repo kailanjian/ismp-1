@@ -13,5 +13,8 @@
   "mentors": "导师",
   "stories": "故事",
   "blog": "博客",
-  "view_all": "查看全部"
+  "view_all": "查看全部",
+  "sorry": "抱歉",
+  "sorry_blurb": "抱歉，找不到您要查找的页面。请确保您输入了当前URL。",
+  "page_not_found": "糟糕！网页未找到"
 }

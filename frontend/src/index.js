@@ -19,8 +19,8 @@ import * as serviceWorker from './utils/serviceWorker';
 
 const tagManagerArgs = {
   gtmId: 'GTM-W8ZF3HP'
-}
-TagManager.initialize(tagManagerArgs)
+};
+TagManager.initialize(tagManagerArgs);
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

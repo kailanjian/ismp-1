@@ -33,22 +33,36 @@ const Program = () => {
 
       <Section>
         <Grid doubling stackable columns={4}>
-          {programInstructions.map(instruction => (
-            <Grid.Column key={instruction.title}>
-              <InstructionCard instruction={instruction} />
-            </Grid.Column>
-          ))}
+          {programInstructions.map(instruction => {
+            const instructionTranslated = {
+              ...instruction,
+              title: t(instruction.titleTKey),
+              blurb: t(instruction.blurbTKey)
+            };
+            return (
+              <Grid.Column key={instruction.title}>
+                <InstructionCard instruction={instructionTranslated} />
+              </Grid.Column>
+            );
+          })}
         </Grid>
       </Section>
 
       <Section>
         <SectionHeader title="Program Details" />
         <Grid doubling stackable columns={2}>
-          {programDetails.map(program => (
-            <Grid.Column key={program.title}>
-              <ProgramCard program={program} fullText={true} />
-            </Grid.Column>
-          ))}
+          {programDetails.map(program => {
+            const programTranslated = {
+              ...program,
+              title: t(program.titleTKey),
+              blurb: t(program.blurbTKey)
+            };
+            return (
+              <Grid.Column key={program.title}>
+                <ProgramCard program={programTranslated} fullText={true} />
+              </Grid.Column>
+            );
+          })}
         </Grid>
       </Section>
     </PageContainer>

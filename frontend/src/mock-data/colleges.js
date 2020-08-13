@@ -100,12 +100,6 @@ const colleges = [
     imageUrl: getCollegeImage('umn.jpg')
   },
   {
-    name: 'University of North Carolina',
-    abbr: 'unc',
-    active: true,
-    imageUrl: getCollegeImage('unc.jpg')
-  },
-  {
     name: 'University of Southern California',
     abbr: 'usc',
     active: true,

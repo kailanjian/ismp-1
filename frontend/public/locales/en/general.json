@@ -14,5 +14,8 @@
   "mentors": "Mentors",
   "stories": "Stories",
   "blog": "Blog",
-  "view_all": "View All"
+  "view_all": "View All",
+  "sorry": "Sorry",
+  "sorry_blurb": "Sorry, but the page you are looking for is not found. Please, make sure you have typed the current URL.",
+  "page_not_found": "Oops! Page Not Found"
 }

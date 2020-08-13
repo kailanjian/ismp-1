@@ -1,12 +1,12 @@
 import Header from 'layout/Header';
 import React from 'react';
-import ReactHtmlParser from 'react-html-parser';
+import Markdown from 'react-remarkable';
 import { Icon } from 'semantic-ui-react';
 
 import { Container, IconWrapper, Instruction } from './InstructionCard.styles';
 
 const InstructionCard = ({ instruction }) => {
-  const { icon, title, blurbHtml } = instruction;
+  const { icon, title, blurb } = instruction;
 
   return (
     <Container>
@@ -16,7 +16,9 @@ const InstructionCard = ({ instruction }) => {
       <Header size="h3" font="sans">
         {title}
       </Header>
-      <Instruction>{ReactHtmlParser(blurbHtml)}</Instruction>
+      <Instruction>
+        <Markdown>{blurb}</Markdown>
+      </Instruction>
     </Container>
   );
 };
