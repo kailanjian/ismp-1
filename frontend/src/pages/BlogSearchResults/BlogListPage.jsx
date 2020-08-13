@@ -175,13 +175,13 @@ const BlogSearch = props => {
     <PageContainer>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Blogs | ISMP</title>
+        <title>{defaultInputState.type === 'webinar' ? 'Webinars': 'Blogs'} | ISMP</title>
         <meta
           name="description"
           content="Our list of blog resources to help you succeed in your life in the US."
         />
       </Helmet>
-      <PageHeader title="Blogs"></PageHeader>
+      <PageHeader title={defaultInputState.type === 'webinar' ? 'Webinars' : 'Blogs'}></PageHeader>
       <Section>
         <Form size="large">
           <Grid doubling stackable padded="vertically">
