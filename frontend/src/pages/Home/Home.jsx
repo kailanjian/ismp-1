@@ -61,7 +61,6 @@ const Home = () => {
     <>
       <HeroImage />
       <SpecialWebinarSection t={t} />
-      <ProgramSection t={t} />
       <WhoAreWeSection t={t} />
       <MentorSection t={t} />
       <TestimonialCards />
