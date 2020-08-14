@@ -1028,8 +1028,8 @@ const mentors = {
           }
         ],
         current_job: {
-          company: 'Project Coordinator',
-          position: 'Metabolon'
+          company: 'Metabolon',
+          position: 'Project Coordinator'
         },
         fun_facts: 'A distant descendant of Confucius',
         linkedin_url: 'https://www.linkedin.com/in/linda-kong-850206137/'
