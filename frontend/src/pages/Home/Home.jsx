@@ -60,6 +60,7 @@ const Home = () => {
   return (
     <>
       <HeroImage />
+      <SpecialWebinarSection t={t} />
       <ProgramSection t={t} />
       <WhoAreWeSection t={t} />
       <MentorSection t={t} />
@@ -89,13 +90,13 @@ const SpecialWebinarSection = ({ t }) => (
     <Grid doubling stackable columns={2}>
       <Grid.Column>
         <a
-          href="https://go.internationalmentorship.org/webinar"
+          href="https://us02web.zoom.us/webinar/register/8615973440062/WN_oOyv1eV2SfisXvgpujuOhg"
           target="_blank"
           rel="noopener noreferrer"
         >
           <img
-            src="https://ismp-us-east-1.s3.amazonaws.com/home/webinar_how_to_avoid_scams.jpg"
-            alt="Special Webinar: How to Avoid Scams"
+            src="https://ismp-us-east-1.s3.amazonaws.com/home/webinar_how_to_find_internship_covid.png"
+            alt="Special Webinar: How to Find a Job or Internship During COVID-19 as an International Student"
           />
         </a>
       </Grid.Column>
@@ -105,7 +106,7 @@ const SpecialWebinarSection = ({ t }) => (
         <h4>{t('webinar_section.us_time')}</h4>
         <h4>{t('webinar_section.asia_time')}</h4>
         <a
-          href="https://go.internationalmentorship.org/webinar"
+          href="https://us02web.zoom.us/webinar/register/8615973440062/WN_oOyv1eV2SfisXvgpujuOhg"
           target="_blank"
           rel="noopener noreferrer"
         >
