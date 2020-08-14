@@ -571,8 +571,8 @@ const mentors = {
           }
         ],
         current_job: {
-          company: 'Progammer Analyst',
-          position: 'County of Fairfax'
+          company: 'County of Fairfax',
+          position: 'Progammer Analyst'
         },
         fun_facts: 'I love to cook and I cook to destress.',
         linkedin_url: 'https://www.linkedin.com/in/wongwaree-c-504b31144/'
