@@ -12,11 +12,11 @@ sections:
 - type: document
   path: "\\frontend\\public\\locales"
   label: Webinar
-upload_dir: uploads
-public_path: "/uploads"
+upload_dir: krikor-cms-test
+public_path: https://ismp-us-east-1.s3.amazonaws.com/krikor-cms-test
 front_matter_path: ''
-use_front_matter_path: false
-file_template: 'forestry/:filename:'
+use_front_matter_path: 
+file_template: ":filename:"
 build:
   install_dependencies_command: npm install
   preview_docker_image: forestryio/node:12
