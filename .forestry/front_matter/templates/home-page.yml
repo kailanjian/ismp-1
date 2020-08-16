@@ -1,0 +1,75 @@
+---
+label: Home Page
+hide_body: true
+fields:
+- type: text
+  name: get_connected
+  label: get_connected
+- type: field_group
+  name: webinar_section
+  label: webinar_section
+  fields:
+  - type: text
+    name: title
+    label: title
+  - type: text
+    name: webinar_title
+    label: webinar_title
+  - type: textarea
+    name: webinar_blurb
+    label: webinar_blurb
+  - type: text
+    name: us_time
+    label: us_time
+  - type: text
+    name: asia_time
+    label: asia_time
+  - type: text
+    name: action
+    label: action
+- type: field_group
+  name: steps_section
+  label: steps_section
+  fields:
+  - type: text
+    name: title
+    label: title
+  - type: textarea
+    name: blurb
+    label: blurb
+- type: field_group
+  name: who_section
+  label: who_section
+  fields:
+  - type: text
+    name: title
+    label: title
+  - type: textarea
+    name: blurb
+    label: blurb
+- type: field_group
+  name: diff_section
+  label: diff_section
+  fields:
+  - type: text
+    name: title
+    label: title
+  - type: textarea
+    name: blurb
+    label: blurb
+- type: field_group
+  name: mentor_section
+  label: mentor_section
+  fields:
+  - type: text
+    name: title
+    label: title
+  - type: textarea
+    name: blurb
+    label: blurb
+- type: text
+  name: webinar_highlights
+  label: webinar_highlights
+- type: text
+  name: featured_blogposts
+  label: featured_blogposts
