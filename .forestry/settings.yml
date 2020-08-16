@@ -7,7 +7,7 @@ sections:
 - type: heading
   label: Something
 - type: document
-  path: frontend\public\locales\en\home.json
+  path: frontend/public/locales/en/home.json
   label: Home Page
 - type: document
   path: "\\frontend\\public\\locales"
