@@ -4,6 +4,8 @@ auto_deploy: false
 admin_path: ''
 webhook_url: 
 sections:
+- type: heading
+  label: Something
 - type: document
   path: frontend\public\locales\en\home.json
   label: Home Page
