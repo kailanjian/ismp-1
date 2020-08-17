@@ -12,7 +12,7 @@ sections:
 - type: document
   path: "\\frontend\\public\\locales"
   label: Webinar
-upload_dir: ''
+upload_dir: media
 public_path: https://ismp-us-east-1.s3.amazonaws.com/krikor-cms-test
 front_matter_path: ''
 use_front_matter_path: 
