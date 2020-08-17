@@ -13,7 +13,7 @@ sections:
   path: "\\frontend\\public\\locales"
   label: Webinar
 upload_dir: media
-public_path: https://ismp-us-east-1.s3.amazonaws.com/krikor-cms-test
+public_path: https://cms-test-krikor.s3-us-west-2.amazonaws.com/media
 front_matter_path: ''
 use_front_matter_path: 
 file_template: ":filename:"
